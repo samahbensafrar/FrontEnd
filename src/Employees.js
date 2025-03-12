@@ -11,7 +11,6 @@ const Employees = () => {
     const [employees, setEmployees] = useState(dataList);
     const [formData, setFormData] = useState({
         nom: "",
-        mot_de_passe: "",
         num_tel: "",
         role: ""
     });
@@ -28,25 +27,67 @@ const Employees = () => {
         });
     };
 
-   
     const handleSubmit = (e) => {
         e.preventDefault();
         const newEmployee = {
             id: employees.length + 1,
             ...formData
         };
-        setEmployees([...employees, newEmployee]); 
+        setEmployees([...employees, newEmployee]);
         setFormData({ nom: "", mot_de_passe: "", num_tel: "", role: "" });
-        toggleModal(); 
+        toggleModal();
     };
 
-    
+
     const filteredData = employees.filter(
         (employee) =>
             employee.nom?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            employee.mot_de_passe?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             employee.role?.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    const [password, setPassword] = useState({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+    });
+    const [selectedEmployeeId, setSelectedEmployeeId] = useState(null);
+    const [passwordModal, setPasswordModal] = useState(false);
+
+    const togglePasswordModal = () => {
+        setPasswordModal(!passwordModal);
+    };
+
+    const handlePasswordChange = (e) => {
+        const { name, value } = e.target;
+        setPassword({
+            ...password,
+            [name]: value
+        });
+    };
+    const [error, setError] = useState("");
+
+    const handlePasswordSubmit = (e) => {
+        e.preventDefault();
+        if (password.newPassword !== password.confirmPassword) {
+            setError("Le nouveau mot de passe et la confirmation ne correspondent pas");
+            return;
+        }
+        setError("")
+        const updatedEmployees = employees.map((employee) =>
+            employee.id === selectedEmployeeId
+                ? { ...employee, mot_de_passe: password.newPassword }
+                : employee
+        );
+        setEmployees(updatedEmployees);
+        setPassword({ oldPassword: "", newPassword: "", confirmPassword: "" });
+        togglePasswordModal();
+    };
+
+    const openPasswordModal = (employeeId) => {
+        setSelectedEmployeeId(employeeId);
+        togglePasswordModal();
+    };
+  
 
     return (
         <>
@@ -61,7 +102,7 @@ const Employees = () => {
                     </button>
                 </div>
 
-                <Tableemployees employees={filteredData} />
+                <Tableemployees employees={filteredData} onPasswordChange={openPasswordModal} />
             </div>
 
             {modal && (
@@ -79,7 +120,7 @@ const Employees = () => {
                                     required
                                 />
                                 <input
-                            
+                                    type="password"
                                     name="mot_de_passe"
                                     placeholder="Mot de passe"
                                     value={formData.mot_de_passe}
@@ -108,7 +149,6 @@ const Employees = () => {
                                     <option value="afroun">Aafroun</option>
                                     <option value="mouzaya">Mouzaya</option>
                                     <option value="bouzegza">Bouzegza</option>
-                                    <option value="bouzegza">Bouzegza</option>
                                 </select>
                                 <div className="modal-buttons">
                                     <button type="button" className="cancel" onClick={toggleModal}>
@@ -116,6 +156,51 @@ const Employees = () => {
                                     </button>
                                     <button type="submit" className="add">
                                         Ajouter
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {passwordModal && (
+                <div className="modal">
+                    <div className='overlay' onClick={togglePasswordModal}>
+                        <div className="modal-content2" onClick={(e) => e.stopPropagation()}>
+                            <h3>Changer Le Mot De Passe</h3>
+                            <form onSubmit={handlePasswordSubmit}>
+                                <input
+                                    type="password"
+                                    name="oldPassword"
+                                    placeholder="Ancien mot de passe"
+                                    value={password.oldPassword}
+                                    onChange={handlePasswordChange}
+                                    required
+                                />
+                                <input
+                                    type="password"
+                                    name="newPassword"
+                                    placeholder="Nouveau mot de passe"
+                                    value={password.newPassword}
+                                    onChange={handlePasswordChange}
+                                    required
+                                />
+                                <input
+                                    type="password"
+                                    name="confirmPassword"
+                                    placeholder="Confirmer le mot de passe"
+                                    value={password.confirmPassword}
+                                    onChange={handlePasswordChange}
+                                    required
+                                />
+                                {error && <p style={{ color: "white", fontSize: "15px", textAlign:"center"}}>{error}</p>}
+                                <div className="modal-buttons">
+                                    <button type="button" className="cancel" onClick={togglePasswordModal}>
+                                        Annuler
+                                    </button>
+                                    <button type="submit" className="save">
+                                        Enregistrer
                                     </button>
                                 </div>
                             </form>

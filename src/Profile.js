@@ -27,10 +27,6 @@ const Profile = () => {
                 <span className="info-value">{employee.num_tel}</span>
               </div>
               <div className="info-item">
-                <span className="info-label">Mot de passe</span>
-                <span className="info-value">{employee.mot_de_passe}</span>
-              </div>
-              <div className="info-item">
                 <span className="info-label">Rôle</span>
                 <span className="info-value">{employee.role}</span>
               </div>

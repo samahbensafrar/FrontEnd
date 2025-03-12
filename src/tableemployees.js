@@ -1,20 +1,19 @@
 import React from "react";
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
+import LockResetIcon from '@mui/icons-material/LockReset';
 
-const Tableemployees = ({ employees = [] }) => { 
+const Tableemployees = ({ employees = [], onPasswordChange }) => { 
   return (
     <div>
         <table>
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nom</th>
-            <th>Mot de passe</th>
+            <th>Nom et prenom</th>
             <th>Num tel</th>
             <th>Role</th>
-            <th>Action</th>
+            <th className="action"> Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -23,13 +22,17 @@ const Tableemployees = ({ employees = [] }) => {
               <tr key={employee.id}>
                 <td>{employee.id}</td>
                 <td>{employee.nom}</td>
-                <td>{employee.mot_de_passe}</td>
                 <td>{employee.num_tel}</td>
                 <td>{employee.role}</td>
                 <td>
-                  <IconButton className="edit-icon">
-                    <EditIcon sx={{ color: "#233e83" }} />
-                  </IconButton>
+                  <div className="editingIcons">
+                      <IconButton className="edit-icon-first">
+                        <EditIcon sx={{ color: "#233e83" }} />
+                      </IconButton>
+                      <IconButton className="edit-icon" onClick={() => onPasswordChange(employee.id)}>
+                        <LockResetIcon sx={{ color: "#233e83" }} />
+                      </IconButton>
+                  </div>
                 </td>
               </tr>
             ))
