@@ -16,10 +16,10 @@ const LoginForm = () => {
     if (username === "admin" && password === "password") {
       console.log("Login successful");
   
-      // Store authentication token
+
       localStorage.setItem("authToken", "your-token"); 
   
-      navigate("/home"); // Redirect after login
+      navigate("/home");
     } else {
       setError("Invalid username or password");
     }

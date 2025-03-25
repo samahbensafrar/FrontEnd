@@ -25,9 +25,9 @@ const Table = ({ data }) => {
           <tr>
             <th>ID</th>
             <th>Nom</th>
+            <th>prenom</th>
             <th>Num Tel</th>
             <th>État</th>
-            <th>Total</th>
             <th>Type</th>
             <th>Région</th>
             <th>Plus</th>
@@ -36,17 +36,17 @@ const Table = ({ data }) => {
         <tbody>
           {data.length > 0 ? (
             data.map((client) => (
-              <tr key={client.id}>
-                <td>{client.id}</td>
+              <tr key={client.client_id}>
+                <td>{client.client_id}</td>
                 <td>{client.name}</td>
-                <td>{client.numtel}</td>
+                <td>{client.surname}</td>
+                <td>{client.phone_number}</td>
                 <td style={getEtatStyle(client.etat)}>{client.etat}</td>
-                <td>{client.total}</td>
-                <td>{client.type}</td>
+                <td>{client.client_type}</td>
                 <td>{client.region}</td>
                 <td>
                    <IconButton className="edit-icon"
-                    onClick={() => navigate(`/client/${client.id}`)}
+                    onClick={() => navigate(`/client/${client.client_id}`)}
                     style={{ padding: "5px 10px", cursor: "pointer" }}
                   >
                     <EditNoteIcon sx={{ color: "#233e83" }} />

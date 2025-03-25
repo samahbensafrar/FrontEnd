@@ -12,7 +12,7 @@ import dataList from "./data/clients.json";
                 (item) =>
                 item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.etat.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.type.toLowerCase().includes(searchTerm.toLowerCase()) 
+                item.client_type.toLowerCase().includes(searchTerm.toLowerCase()) 
             );     
             return ( 
                 <div>
