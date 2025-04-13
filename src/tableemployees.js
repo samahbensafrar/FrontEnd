@@ -26,12 +26,12 @@ const Tableemployees = ({ employees = [], onPasswordChange, onDelete }) => {
                 <td>{employee.role}</td>
                 <td>
                   <div className="editingIcons">
-                    {/* Delete Button */}
-                    <IconButton className="edit-icon-first" onClick={() => onDelete(employee.id)}>
-                      <DeleteIcon sx={{ color: "#233e83" }} />
-                    </IconButton>
+            
+                  <IconButton className="edit-icon-first" onClick={() => onDelete(employee)}>
+                   <DeleteIcon sx={{ color: "#233e83" }} />
+                  </IconButton>
 
-                    {/* Reset Password Button (Ensure onClick is properly passed) */}
+  
                     <IconButton className="edit-icon" onClick={() => onPasswordChange(employee.id)}>
                       <LockResetIcon sx={{ color: "#233e83" }} />
                     </IconButton>
