@@ -689,4 +689,15 @@ textarea {
 .action{
   padding-left: 120px;
 }
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.username {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
 

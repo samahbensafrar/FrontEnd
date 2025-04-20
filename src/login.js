@@ -2,26 +2,33 @@ import React, { useState } from 'react';
 import './login.css';
 import logo from './logo.jpg';
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from './AuthContext';
+import axios from 'axios';
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    if (username === "admin" && password === "password") {
-      console.log("Login successful");
-  
+    setError("");
 
-      localStorage.setItem("authToken", "your-token"); 
-  
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/token/",
+        { username, password },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+
+      const { access } = response.data;
+      login(access, { username });
       navigate("/home");
-    } else {
-      setError("Invalid username or password");
+    } catch (error) {
+      console.error("Login error:", error.response?.data || error.message);
+      setError(error.response?.data?.detail || "Invalid username or password");
     }
   };
 

@@ -5,31 +5,31 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-
 export const SidebarData = [
     {
-        title:"Dashboard",
-        icon:<DashboardIcon/>,
-        link:"/Dashboard",
+        title: "Dashboard",
+        icon: <DashboardIcon />,
+        link: "/Dashboard",
     },
     {
-        title:"Les employees",
-        icon:<GroupsIcon/>,
-        link:"/LesEmployees",
+            title: "Employees",
+            icon: <GroupsIcon />,
+            link: "/LesEmployees",
+            adminOnly: true  // only admin sees this
     },
     {
-        title:"Listes des clients",
-        icon:<FormatListNumberedIcon/>,
-        link:"/home",
-    } , {
-        title:"Profile",
-        icon:<PersonIcon/>,
-        link:"/profile/:id",
+        title: "Listes des clients",
+        icon: <FormatListNumberedIcon />,
+        link: "/home",
     },
     {
-        title:"Logout",
-        icon:<LogoutIcon/>,
-        link:"/",
+        title: "Profile",
+        icon: <PersonIcon />,
+        link: "/profile/:id",
+    },
+    {
+        title: "Logout",
+        icon: <LogoutIcon />,
+        link: "/logout",  // <-- Important! This triggers logout in Sidebar.js
     }
-
 ];
