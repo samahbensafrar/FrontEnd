@@ -2,7 +2,16 @@ import React from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from "@mui/material";
 import LockResetIcon from '@mui/icons-material/LockReset';
-
+const ROLE_LABELS = {
+  1: "Admin",
+  2: "Responsable de Boufarik",
+  3: "Responsable de Mouzaia",
+  4: "Responsable de Larbaa",
+  5: "Responsable de Oulad Yaich",
+  6: "Responsable de El Wouroud",
+  7: "Responsable de Bougara",
+  8: "Responsable de Afroun"
+};
 const Tableemployees = ({ employees = [], onPasswordChange, onDelete }) => {
   return (
     <div>
@@ -23,7 +32,7 @@ const Tableemployees = ({ employees = [], onPasswordChange, onDelete }) => {
                 <td>{employee.id}</td>
                 <td>{employee.username}</td>
                 <td>{employee.phone_number}</td>
-                <td>{employee.role}</td>
+                <td> {ROLE_LABELS[employee.role] || "Rôle inconnu"}</td>
                 <td>
                   <div className="editingIcons">
             
